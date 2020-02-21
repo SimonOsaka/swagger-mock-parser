@@ -21,10 +21,11 @@ export default class ObjectParser {
         this.cache.push(schema);
         // if is not swagger object type return null object
         if (schema) {
-            var hasCircular = this.cache.filter(function (cacheObj) {
-                    return schema == cacheObj;
-                }).length > 1
             for (var k in schema) {
+                // 修改：2020-02-21，hasCircular在array情况下，会发生array的第一个内容是完整，但第二个内容只有一个id的情况
+                var hasCircular = this.cache.filter(function (cacheObj) {
+                    return k == cacheObj;
+                 }).length > 1;
                 // detect and break circular references in schema
                 if (hasCircular) {
                     schema[k] = JSON.parse(JSON.stringify(schema[k]));

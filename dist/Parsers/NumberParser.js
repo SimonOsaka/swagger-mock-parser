@@ -42,7 +42,8 @@ var NumberParser = (function () {
     }, {
         key: 'resolveBounds',
         value: function resolveBounds(node) {
-            var bounds = { min: Number.MIN_SAFE_INTEGER, max: Number.MAX_SAFE_INTEGER };
+            // 修改： 2020-02-21，将min修改为正整数1，不希望有负数，不建议在schema内写x-type-options
+            var bounds = { min: 1, max: Number.MAX_SAFE_INTEGER };
 
             Object.assign(bounds, node['x-type-options']);
 
